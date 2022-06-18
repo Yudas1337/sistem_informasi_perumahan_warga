@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use Faker\Provider\Uuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
@@ -15,10 +17,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'id'    => Uuid::uuid(),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
+            'phone_number' => $this->faker->unique()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'role'  => Arr::random(['administrator', 'village_head']),
             'remember_token' => Str::random(10),
         ];
     }
