@@ -3,20 +3,28 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
+use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
 
 class DashboardController extends Controller
 {
+    private $userService;
+
+    function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     /**
-     * Create a new controller instance.
+     * Get authenticated user.
      *
-     * @return void
+     * @return object
      */
 
-    function __construct()
+    public function getUser()
     {
-        $this->middleware('auth');
+        return $this->userService->fetchUserSession();
     }
 
     /**
@@ -27,73 +35,41 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $user = auth()->user();
-        return view('dashboard.pages.home', compact('user'));
+        return view('dashboard.pages.home');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the profile page.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function create()
+
+    public function profile()
     {
-        //
+        return view('dashboard.pages.profile', ['user' => $this->getUser()]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the current user profile session
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return  \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+
+    public function changeProfile(ProfileRequest $request): RedirectResponse
     {
-        //
+        $this->userService->updateProfile($request);
+
+        return redirect()->back()->with('success', 'Berhasil update Profile');
     }
 
     /**
-     * Display the specified resource.
+     * Show the change password page.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function changePassword()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('dashboard.pages.change-password', ['user' => $this->getUser()]);
     }
 }

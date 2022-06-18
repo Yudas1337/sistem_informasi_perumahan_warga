@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\Core\DashboardController;
+use App\Http\Controllers\Core\{
+    DashboardController
+};
+
 use Illuminate\Support\Facades\{
     Auth,
     Route
@@ -17,6 +20,10 @@ use Illuminate\Support\Facades\{
 |
 */
 
+Route::fallback(function () {
+    abort(404);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,6 +34,14 @@ Auth::routes([
     'reset'     => false
 ]);
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [DashboardController::class, 'profile'])->name('user.profile');
+            Route::post('/', [DashboardController::class, 'changeProfile'])->name('user.changeProfile');
+        });
+
+        Route::get('change-password', [DashboardController::class, 'changePassword'])->name('user.changePassword');
+    });
 });

@@ -54,12 +54,8 @@ class LoginController extends Controller
     {
         $route_login = redirect()->route('login');
 
-        if (auth()->attempt($request->validated() + ['status' => 1])) {
-            return redirect()->route('dashboard.home');
-        } else {
-            return $route_login->with('error', 'Akun anda telah dinokatifkan. silahkan hubungi Kepala Desa');
-        }
+        if (auth()->attempt($request->validated() + ['status' => 1])) return redirect()->route('dashboard.home');
 
-        return $route_login->with('error', 'Email atau Password salah');
+        return $route_login->with('error', 'Email dan Password salah atau Akun anda telah dinonaktifkan');
     }
 }

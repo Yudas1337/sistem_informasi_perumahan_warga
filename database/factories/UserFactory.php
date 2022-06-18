@@ -23,7 +23,8 @@ class UserFactory extends Factory
             'phone_number' => $this->faker->unique()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role'  => Arr::random(['administrator', 'village_head']),
+            'role'      => Arr::random(['administrator', 'village_head']),
+            'gender'    => Arr::random(['male', 'female']),
             'remember_token' => Str::random(10),
         ];
     }
