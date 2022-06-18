@@ -37,17 +37,4 @@ class ChangePasswordRequest extends BaseRequest
             'password_confirmation.required'        => 'Ulangi password tidak boleh kosong'
         ];
     }
-
-    /**
-     * Encrypt password to hash and merge it.
-     *
-     * @return void
-     */
-
-    protected function passedValidation(): void
-    {
-        $this->merge([
-            'password' => bcrypt($this->password)
-        ]);
-    }
 }

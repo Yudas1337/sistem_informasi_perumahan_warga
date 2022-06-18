@@ -9,7 +9,6 @@ use App\Repositories\UserRepository;
 
 class UserService
 {
-
     private $repository;
 
     function __construct(UserRepository $userRepository)
@@ -39,8 +38,7 @@ class UserService
     public function updateProfile(ProfileRequest $request): void
     {
         $validated  = $request->validated();
-        $user       = $this->repository->getUser();
-        $old_photo  = $user->photo;
+        $old_photo  = $this->fetchUserSession()->photo;
 
         if ($request->file('photo')) {
             if (!is_null($old_photo)) UploadHelper::handleRemove($old_photo);
@@ -48,7 +46,7 @@ class UserService
             $old_photo = UploadHelper::handleUpload($request->file('photo'), $this->repository->getDiskName());
         }
 
-        $this->repository->update($user->id, [
+        $this->repository->update($this->fetchUserSession()->id, [
             'name'          => $validated['name'],
             'email'         => $validated['email'],
             'phone_number'  => $validated['phone_number'],
@@ -67,8 +65,8 @@ class UserService
 
     public function updatePassword(ChangePasswordRequest $request): void
     {
-        $user       = $this->repository->getUser();
-
-        $this->repository->update($user->id, $request->validated());
+        $this->repository->update($this->fetchUserSession()->id, [
+            'password' => bcrypt($request->validated()['password'])
+        ]);
     }
 }
