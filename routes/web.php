@@ -41,7 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [DashboardController::class, 'profile'])->name('user.profile');
             Route::post('/', [DashboardController::class, 'changeProfile'])->name('user.changeProfile');
         });
-
-        Route::get('change-password', [DashboardController::class, 'changePassword'])->name('user.changePassword');
+        Route::prefix('change-password')->group(function () {
+            Route::get('/', [DashboardController::class, 'changePassword'])->name('user.changePassword');
+            Route::post('/', [DashboardController::class, 'updatePassword'])->name('user.updatePassword');
+        });
     });
 });

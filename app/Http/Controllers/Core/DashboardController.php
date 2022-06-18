@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
@@ -52,6 +53,8 @@ class DashboardController extends Controller
     /**
      * Update the current user profile session
      *
+     * @param ProfileRequest $request
+     * 
      * @return  \Illuminate\Http\RedirectResponse
      */
 
@@ -59,7 +62,7 @@ class DashboardController extends Controller
     {
         $this->userService->updateProfile($request);
 
-        return redirect()->back()->with('success', 'Berhasil update Profile');
+        return redirect()->back()->with('success', 'Berhasil update profile');
     }
 
     /**
@@ -71,5 +74,19 @@ class DashboardController extends Controller
     public function changePassword()
     {
         return view('dashboard.pages.change-password', ['user' => $this->getUser()]);
+    }
+
+    /**
+     * Update the current user password session
+     *
+     * @param ChangePasswordRequest $request
+     * 
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+
+    public function updatePassword(ChangePasswordRequest $request): RedirectResponse
+    {
+        $this->userService->updatePassword($request);
+        return redirect()->back()->with('success', 'Berhasil ubah password');
     }
 }

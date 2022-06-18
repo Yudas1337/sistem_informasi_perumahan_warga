@@ -54,4 +54,16 @@ class UserRepository
     {
         return $this->show($id)->update($data);
     }
+
+    /**
+     * Get user file Diskname
+     * 
+     *
+     * @return string
+     */
+
+    public function getDiskName(): string
+    {
+        return ('user_images');
+    }
 }

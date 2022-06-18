@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\UploadHelper;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\UserRepository;
 
@@ -10,7 +11,6 @@ class UserService
 {
 
     private $repository;
-    private $path = 'user_images';
 
     function __construct(UserRepository $userRepository)
     {
@@ -45,7 +45,7 @@ class UserService
         if ($request->file('photo')) {
             if (!is_null($old_photo)) UploadHelper::handleRemove($old_photo);
 
-            $old_photo = UploadHelper::handleUpload($request->file('photo'), $this->path);
+            $old_photo = UploadHelper::handleUpload($request->file('photo'), $this->repository->getDiskName());
         }
 
         $this->repository->update($user->id, [
@@ -55,5 +55,20 @@ class UserService
             'photo'         => $old_photo,
             'gender'        => $validated['gender']
         ]);
+    }
+
+    /**
+     * Update user password by current session.
+     *
+     * @param ChangePasswordRequest $request
+     * 
+     * @return void
+     */
+
+    public function updatePassword(ChangePasswordRequest $request): void
+    {
+        $user       = $this->repository->getUser();
+
+        $this->repository->update($user->id, $request->validated());
     }
 }
