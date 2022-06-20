@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\UploadHelper;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\ManageAdmin\StoreRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\UserRepository;
 
@@ -28,11 +29,25 @@ class UserService
     }
 
     /**
+     * Fetch user by given id.
+     *
+     * @param string $id
+     * 
+     * @return object
+     */
+
+    public function fetchUserById(string $id): object
+    {
+        return $this->repository->show($id);
+    }
+
+    /**
      * Update user profile by current session.
      *
      * @param ProfileRequest $request
      * 
      * @return void
+     * 
      */
 
     public function updateProfile(ProfileRequest $request): void
@@ -68,5 +83,75 @@ class UserService
         $this->repository->update($this->fetchUserSession()->id, [
             'password' => bcrypt($request->validated()['password'])
         ]);
+    }
+
+    /**
+     * Fetch administrator from userRepository
+     *
+     * 
+     * @return object
+     */
+
+    public function fetchAdministrator(): object
+    {
+        return $this->repository->getAdministrator();
+    }
+
+    /**
+     * add new administrator user
+     *
+     * @param StoreAdminRequest $request
+     * 
+     * @return void
+     */
+
+    public function storeAdmin(StoreRequest $request): void
+    {
+        $validated = $request->validated();
+
+        $this->repository->store([
+            'name'          => $validated['name'],
+            'email'         => $validated['email'],
+            'phone_number'  => $validated['phone_number'],
+            'role'          => 'administrator',
+            'gender'        => $validated['gender'],
+            'password'      => bcrypt($validated['password'])
+        ]);
+    }
+
+    /**
+     * delete administrator user by given id
+     *
+     * @param string $id
+     * 
+     * @return void
+     */
+
+    public function removeAdmin(string $id): void
+    {
+        $show = $this->fetchUserById($id);
+        if (!is_null($show->poto)) UploadHelper::handleRemove($show->photo);
+
+        $this->repository->destroy($id);
+    }
+
+    /**
+     * Modify administrator status by given id
+     *
+     * @param string $id
+     * 
+     * @return int
+     */
+
+    public function modifyAdminStatus(string $id): int
+    {
+        $show = $this->fetchUserById($id);
+        $new_status = ($show->status == 1 ? 0 : 1);
+
+        $this->repository->update($id, [
+            'status' => $new_status
+        ]);
+
+        return $new_status;
     }
 }

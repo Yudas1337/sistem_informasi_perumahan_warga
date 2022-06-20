@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Traits\UserTrait;
-use Illuminate\Database\Eloquent\Model;
 
 class UserRepository
 {
@@ -29,6 +28,18 @@ class UserRepository
     }
 
     /**
+     * Store data into User Model
+     *
+     * @param array $data
+     * 
+     */
+
+    public function store(array $data): mixed
+    {
+        return $this->model->create($data);
+    }
+
+    /**
      * Get user data by provided id.
      *
      * @param string $id
@@ -47,12 +58,36 @@ class UserRepository
      * @param string $id
      * @param array $data
      *
-     * @return Illuminate\Database\Eloquent\Model
      */
 
-    public function update(string $id, array $data)
+    public function update(string $id, array $data): mixed
     {
         return $this->show($id)->update($data);
+    }
+
+    /**
+     * delete user profile
+     * 
+     * @param string $id
+     *
+     * @return mixed
+     */
+
+    public function destroy(string $id): mixed
+    {
+        return $this->show($id)->delete();
+    }
+
+    /**
+     * Get Administrator
+     * 
+     *
+     * @return object
+     */
+
+    public function getAdministrator(): object
+    {
+        return $this->model->where('role', 'administrator')->get();
     }
 
     /**

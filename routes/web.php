@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Core\{
-    DashboardController
+    DashboardController,
+    CivilianController,
+    ManageAdminController,
+    ResidenceController
 };
-
 use Illuminate\Support\Facades\{
     Auth,
     Route
@@ -34,16 +36,21 @@ Auth::routes([
     'reset'     => false
 ]);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+    Route::name('user.')->group(function () {
         Route::prefix('profile')->group(function () {
-            Route::get('/', [DashboardController::class, 'profile'])->name('user.profile');
-            Route::post('/', [DashboardController::class, 'changeProfile'])->name('user.changeProfile');
+            Route::get('/', [DashboardController::class, 'profile'])->name('profile');
+            Route::post('/', [DashboardController::class, 'changeProfile'])->name('changeProfile');
         });
         Route::prefix('change-password')->group(function () {
-            Route::get('/', [DashboardController::class, 'changePassword'])->name('user.changePassword');
-            Route::post('/', [DashboardController::class, 'updatePassword'])->name('user.updatePassword');
+            Route::get('/', [DashboardController::class, 'changePassword'])->name('changePassword');
+            Route::post('/', [DashboardController::class, 'updatePassword'])->name('updatePassword');
         });
+    });
+    Route::middleware('can:manage-for-villagehead')->group(function () {
+        Route::resource('manage-admins', ManageAdminController::class)->only('index', 'create', 'store', 'destroy');
+        Route::post('modify-admin-status{id}', [ManageAdminController::class, 'modifyAdmin'])->name('modify.admin');
+        Route::resource('manage-residences', ResidenceController::class);
     });
 });

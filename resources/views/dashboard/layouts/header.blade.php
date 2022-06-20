@@ -31,3 +31,10 @@
 <link rel="stylesheet" type="text/css"
     href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
 <!-- END: Page CSS-->
+
+<!-- BEGIN: Vendor CSS-->
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
+<!-- END: Vendor CSS-->

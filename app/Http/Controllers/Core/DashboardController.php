@@ -7,6 +7,7 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
@@ -31,10 +32,10 @@ class DashboardController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\View
      */
 
-    public function index()
+    public function index(): View
     {
         return view('dashboard.pages.home');
     }
@@ -42,10 +43,10 @@ class DashboardController extends Controller
     /**
      * Show the profile page.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\View
      */
 
-    public function profile()
+    public function profile(): View
     {
         return view('dashboard.pages.profile', ['user' => $this->getUser()]);
     }
@@ -68,10 +69,10 @@ class DashboardController extends Controller
     /**
      * Show the change password page.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\View
      */
 
-    public function changePassword()
+    public function changePassword(): View
     {
         return view('dashboard.pages.change-password', ['user' => $this->getUser()]);
     }
@@ -87,6 +88,7 @@ class DashboardController extends Controller
     public function updatePassword(ChangePasswordRequest $request): RedirectResponse
     {
         $this->userService->updatePassword($request);
+
         return redirect()->back()->with('success', 'Berhasil ubah password');
     }
 }
