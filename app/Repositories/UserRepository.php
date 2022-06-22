@@ -38,6 +38,37 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * Get Administrator
+     * 
+     *
+     * @return object
+     */
+
+    public function getVillageHead(): object
+    {
+        return $this->model->where('role', 'village_head')->get();
+    }
+
+    /**
+     * Handle take specified limit data from models.
+     *
+     * @param mixed $column
+     * @param mixed $keyword
+     * @param int $limit
+     * 
+     * @return mixed
+     */
+
+    public function limitResults(mixed $column, mixed $keyword, int $limit): mixed
+    {
+        return $this->model
+            ->where($column, $keyword)
+            ->take($limit)
+            ->latest()
+            ->get();
+    }
+
+    /**
      * Get user file Diskname
      * 
      *

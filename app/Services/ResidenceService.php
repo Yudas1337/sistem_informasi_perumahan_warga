@@ -37,6 +37,30 @@ class ResidenceService
     }
 
     /**
+     * Count all residence data from ResidenceRepository
+     *
+     * 
+     * @return int
+     */
+
+    public function countResidences(): int
+    {
+        return $this->repository->countResidences();
+    }
+
+    /**
+     * Count all house type data from ResidenceRepository
+     *
+     * 
+     * @return int
+     */
+
+    public function countHouseType(): int
+    {
+        return $this->typeRepository->countHouseType();
+    }
+
+    /**
      * add new residence data into ResidenceRepository
      *
      * @param StoreRequest $request

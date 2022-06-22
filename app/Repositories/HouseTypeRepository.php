@@ -10,4 +10,16 @@ class HouseTypeRepository extends BaseRepository
     {
         $this->model = $houseType;
     }
+
+    /**
+     * count all house type
+     * 
+     *
+     * @return int
+     */
+
+    public function countHouseType(): int
+    {
+        return $this->model->count();
+    }
 }

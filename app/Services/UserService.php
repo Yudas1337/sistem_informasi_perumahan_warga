@@ -42,6 +42,17 @@ class UserService
     }
 
     /**
+     * Handle take specified limit data from UserRepository.
+     *
+     * @return mixed
+     */
+
+    public function displayLimitAdministrator(): mixed
+    {
+        return $this->repository->limitResults('role', 'administrator', 5);
+    }
+
+    /**
      * Update user profile by current session.
      *
      * @param ProfileRequest $request
@@ -98,6 +109,18 @@ class UserService
     }
 
     /**
+     * Fetch village_head from userRepository
+     *
+     * 
+     * @return object
+     */
+
+    public function fetchVillageHead(): object
+    {
+        return $this->repository->getVillageHead();
+    }
+
+    /**
      * add new administrator user
      *
      * @param StoreAdminRequest $request
@@ -148,9 +171,7 @@ class UserService
         $show = $this->fetchUserById($id);
         $new_status = ($show->status == 1 ? 0 : 1);
 
-        $this->repository->update($id, [
-            'status' => $new_status
-        ]);
+        $this->repository->update($id, ['status' => $new_status]);
 
         return $new_status;
     }

@@ -40,4 +40,16 @@ class ResidenceRepository extends BaseRepository
             ->whereLike('address', $search)
             ->get();
     }
+
+    /**
+     * count all residences
+     * 
+     *
+     * @return int
+     */
+
+    public function countResidences(): int
+    {
+        return $this->model->count();
+    }
 }
