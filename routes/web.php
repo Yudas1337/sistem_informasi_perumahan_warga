@@ -52,5 +52,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
         Route::resource('manage-admins', ManageAdminController::class)->only('index', 'create', 'store', 'destroy');
         Route::post('modify-admin-status{id}', [ManageAdminController::class, 'modifyAdmin'])->name('modify.admin');
         Route::resource('manage-residences', ResidenceController::class);
+        Route::prefix('manage-residences')->group(function () {
+            Route::post('search', [ResidenceController::class, 'searchResidence'])->name('manage-residences.search');
+        });
     });
 });

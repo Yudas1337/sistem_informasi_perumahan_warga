@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Residence\StoreRequest;
 use App\Http\Requests\Residence\UpdateRequest;
+use App\Http\Requests\SearchResidence;
 use App\Services\HouseTypeService;
 use App\Services\ResidenceService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View as FacadesView;
 
 class ResidenceController extends Controller
@@ -108,5 +108,23 @@ class ResidenceController extends Controller
     {
         $this->service->destroyResidence($id);
         return redirect()->route('manage-residences.index')->with('success', 'Berhasil menghapus rumah');
+    }
+
+    /**
+     * Display a listing of the resource by search.
+     *
+     * @param SearchResidence $request
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+
+    public function searchResidence(SearchResidence $request): View
+    {
+        $data = [
+            'houses'    => $this->service->searchResidence($request),
+            'types'     => $this->typeService->getAll()
+        ];
+
+        return view('dashboard.pages.residences.index', $data);
     }
 }

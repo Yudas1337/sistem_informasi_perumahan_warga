@@ -7,7 +7,7 @@ use App\Http\Requests\Residence\{
     StoreRequest,
     UpdateRequest
 };
-
+use App\Http\Requests\SearchResidence;
 use App\Repositories\{
     HouseTypeRepository,
     ResidenceRepository
@@ -126,5 +126,22 @@ class ResidenceService
             if ($e->errorInfo[1] == 1461) {
             }
         }
+    }
+
+    /**
+     * Handle search residence data from ResidenceRepository by given keyword
+     *
+     * @param SearchResidence $request
+     * 
+     * @return mixed
+     */
+
+    public function searchResidence(SearchResidence $request)
+    {
+        $search = $request->validated()['search'];
+
+        $results = $this->repository->search($search);
+
+        return (count($results) > 0) ? $results : $this->getResidences();
     }
 }

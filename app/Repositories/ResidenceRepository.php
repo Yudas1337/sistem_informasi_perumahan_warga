@@ -25,4 +25,19 @@ class ResidenceRepository extends BaseRepository
     {
         return ('residence_images');
     }
+
+    /**
+     * searh residences by keyword
+     * 
+     * @param string $search
+     *
+     * @return mixed
+     */
+
+    public function search(string $search)
+    {
+        return $this->model
+            ->whereLike('address', $search)
+            ->get();
+    }
 }

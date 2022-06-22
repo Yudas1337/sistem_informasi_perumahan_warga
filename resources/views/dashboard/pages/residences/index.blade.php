@@ -40,18 +40,21 @@
             </div>
         </div>
         <div class="row mt-1">
-            <div class="col-sm-12">
-                <div class="input-group input-group-merge">
-                    <input type="text" class="form-control search-product" id="shop-search"
-                        placeholder="Cari alamat atau tipe rumah" aria-describedby="shop-search">
-                    <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-search text-muted">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg></span>
+            <form action="{{ route('manage-residences.search') }}" method="POST">
+                @csrf
+                <div class="col-sm-6">
+                    <div class="input-group input-group-merge">
+                        <input autocomplete="off" name="search" type="text" class="form-control search-product"
+                            id="shop-search" placeholder="Cari alamat rumah" aria-describedby="shop-search">
+                        <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-search text-muted">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg></span>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="col-12 mt-3">
                 @if (Session::get('success'))
                     <div class="alert alert-success" role="alert">
