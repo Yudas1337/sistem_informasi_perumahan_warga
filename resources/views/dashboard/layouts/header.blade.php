@@ -30,6 +30,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/charts/chart-apex.min.css') }}">
 <link rel="stylesheet" type="text/css"
     href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-ecommerce.min.css') }}">
 <!-- END: Page CSS-->
 
 <!-- BEGIN: Vendor CSS-->
@@ -38,3 +39,4 @@
 <link rel="stylesheet" type="text/css"
     href="{{ asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
 <!-- END: Vendor CSS-->
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">

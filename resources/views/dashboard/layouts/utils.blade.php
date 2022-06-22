@@ -30,6 +30,8 @@
 <script src="{{ asset('app-assets/js/scripts/customizer.min.js') }}"></script>
 <!-- END: Theme JS-->
 
+<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+
 
 <script>
     $(window).on('load', function() {

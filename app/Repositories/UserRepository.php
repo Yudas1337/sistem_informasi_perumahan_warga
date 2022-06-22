@@ -5,11 +5,9 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Traits\UserTrait;
 
-class UserRepository
+class UserRepository extends BaseRepository
 {
     use UserTrait;
-
-    private $model;
 
     function __construct(User $user)
     {
@@ -25,57 +23,6 @@ class UserRepository
     public function getUser(): object
     {
         return $this->model->findOrFail($this->getUserId());
-    }
-
-    /**
-     * Store data into User Model
-     *
-     * @param array $data
-     * 
-     */
-
-    public function store(array $data): mixed
-    {
-        return $this->model->create($data);
-    }
-
-    /**
-     * Get user data by provided id.
-     *
-     * @param string $id
-     * 
-     * @return object
-     */
-
-    public function show(string $id): object
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    /**
-     * Update user profile
-     * 
-     * @param string $id
-     * @param array $data
-     *
-     */
-
-    public function update(string $id, array $data): mixed
-    {
-        return $this->show($id)->update($data);
-    }
-
-    /**
-     * delete user profile
-     * 
-     * @param string $id
-     *
-     * @return mixed
-     */
-
-    public function destroy(string $id): mixed
-    {
-        return $this->show($id)->delete();
     }
 
     /**

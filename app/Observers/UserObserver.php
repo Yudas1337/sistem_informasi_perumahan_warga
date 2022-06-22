@@ -13,6 +13,7 @@ class UserObserver
      * @param  \App\Models\User  $user
      * @return void
      */
+
     public function creating(User $user): void
     {
         $user->id = Uuid::uuid();
