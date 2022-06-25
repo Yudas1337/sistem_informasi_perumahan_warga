@@ -19,8 +19,8 @@
     @endcan
 
     @can('manage-for-administrator')
-        <li class="nav-item {{ request()->routeIs('manage-denizen.*') ? 'active' : '' }}"><a
-                class="d-flex align-items-center" href="{{ route('manage-admins.index') }}"><i
+        <li class="nav-item {{ request()->routeIs('manage-denizens.*') ? 'active' : '' }}"><a
+                class="d-flex align-items-center" href="{{ route('manage-denizens.index') }}"><i
                     data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Data Warga">Data
                     Warga</span></a>
         </li>
@@ -34,8 +34,8 @@
                 <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Laporan Keuangan">Laporan
                     Keuangan</span></a>
         </li>
-        <li class="nav-item {{ request()->routeIs('manage-residences.*') ? 'active' : '' }}"><a
-                class="d-flex align-items-center" href="{{ route('manage-residences.index') }}">
+        <li class="nav-item {{ request()->routeIs('manage-finances.*') ? 'active' : '' }}"><a
+                class="d-flex align-items-center" href="{{ route('manage-finances.index') }}">
                 <i data-feather="dollar-sign"></i><span class="menu-title text-truncate" data-i18n="Data Iuran">Iuran
                     Warga</span></a>
         </li>

@@ -32,7 +32,6 @@ class Residence extends Model
         'house_types_id'
     ];
 
-
     /**
      * One to Many Relationship with HouseType models.
      *
@@ -42,5 +41,16 @@ class Residence extends Model
     public function house_type()
     {
         return $this->belongsTo(HouseType::class, 'house_types_id');
+    }
+
+    /**
+     * One to Many Relationship with Denizen models.
+     *
+     * @return relationship
+     */
+
+    public function denizens()
+    {
+        return $this->hasMany(Denizen::class, 'residences_id');
     }
 }

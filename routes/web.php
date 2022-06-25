@@ -59,8 +59,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
         });
     });
     Route::middleware('can:manage-for-administrator')->group(function () {
-        Route::resource('manage-denizens', DenizenController::class);
-        Route::resource('manage-activities', ActivityController::class);
-        Route::resource('manage-finances', FinanceController::class);
+        Route::resources([
+            'manage-denizens'   => DenizenController::class,
+            'manage-activities' => ActivityController::class,
+            'manage-finances'   => FinanceController::class
+        ]);
     });
 });

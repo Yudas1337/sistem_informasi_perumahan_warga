@@ -37,6 +37,18 @@ class ResidenceService
     }
 
     /**
+     * Get all denizens data from ResidenceRepository
+     *
+     * 
+     * @return mixed
+     */
+
+    public function getAllDenizens()
+    {
+        return $this->repository->withRelationship(['denizens']);
+    }
+
+    /**
      * Count all residence data from ResidenceRepository
      *
      * 

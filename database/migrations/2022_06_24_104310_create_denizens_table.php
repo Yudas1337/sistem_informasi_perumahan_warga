@@ -16,13 +16,14 @@ class CreateDenizensTable extends Migration
         Schema::create('denizens', function (Blueprint $table) {
             $table->char('nik', 16)->primary();
             $table->string('name');
+            $table->string('phone_number', 15)->nullable()->unique();
             $table->string('birth_place');
             $table->date('birth_date');
             $table->text('photo');
             $table->enum('gender', ['male', 'female']);
             $table->enum('families', ['husband', 'housewife', 'child', 'single']);
             $table->enum('religion', ['islam', 'kristen', 'katolik', 'hindu', 'budha', 'konghucu']);
-            $table->foreignUuid('families_id')->nullable()->constrained('families')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreignUuid('residences_id')->nullable()->constrained('residences')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->timestamps();
         });
     }

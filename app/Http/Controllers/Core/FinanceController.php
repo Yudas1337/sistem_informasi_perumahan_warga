@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class FinanceController extends Controller
 {
+    function __construct()
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *

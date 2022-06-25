@@ -3,83 +3,99 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Denizen\StoreRequest;
+use App\Http\Requests\Denizen\UpdateRequest;
+use App\Services\DenizenService;
+use App\Services\ResidenceService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class DenizenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $service, $residenceService;
+
+    function __construct(DenizenService $denizenService, ResidenceService $residenceService)
     {
-        //
+        $this->service          = $denizenService;
+        $this->residenceService = $residenceService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function create()
+
+    public function index(): View
     {
-        //
+        $data = [
+            'denizens'   => $this->residenceService->getAllDenizens(),
+            'residences' => $this->residenceService->getResidences()
+        ];
+        return view('dashboard.pages.denizens.index', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRequest  $request
+     * 
+     * @return RedirectResponse
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
+        $this->service->storeDenizen($request);
+
+        return redirect()->route('manage-denizens.index')->with('success', 'Berhasil menambahkan warga');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * @return \Illuminate\Contracts\View\View
      */
-    public function edit($id)
+
+    public function edit(string $id): View
     {
-        //
+        $data = [
+            'denizen'    => $this->service->getDenizensById($id),
+            'residences' => $this->residenceService->getResidences(),
+            'id'         => $id
+        ];
+        return view('dashboard.pages.denizens.edit', $data);
     }
+
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRequest  $request
+     * @param  string  $id
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+
+    public function update(UpdateRequest $request, string $id): RedirectResponse
     {
-        //
+        $this->service->updateDenizen($request, $id);
+
+        return redirect()->route('manage-denizens.index')->with('success', 'Berhasil update warga');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * 
+     * @return RedirectResponse
      */
-    public function destroy($id)
+
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $this->service->destroyDenizen($id);
+
+        return redirect()->route('manage-denizens.index')->with('success', 'Berhasil menambahkan warga');
     }
 }
