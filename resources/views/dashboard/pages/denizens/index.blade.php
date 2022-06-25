@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h3 class="fw-bolder mb-75">{{ count($denizens) }}</h3>
+                            <h3 class="fw-bolder mb-75">{{ $count_denizen }}</h3>
                             <span>Total Warga</span>
                         </div>
                         <div class="avatar bg-light-primary p-50">

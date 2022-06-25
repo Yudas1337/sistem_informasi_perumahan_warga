@@ -30,6 +30,18 @@ class DenizenService
     }
 
     /**
+     * count all denizens data from ResidenceRepository
+     *
+     * 
+     * @return int
+     */
+
+    public function countDenizens(): int
+    {
+        return count($this->repository->getAll());
+    }
+
+    /**
      * store denizen data to ActivityRepository.
      * 
      * @param StoreRequest $request

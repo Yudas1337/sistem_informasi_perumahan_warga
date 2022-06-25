@@ -29,8 +29,9 @@ class DenizenController extends Controller
     public function index(): View
     {
         $data = [
-            'denizens'   => $this->residenceService->getAllDenizens(),
-            'residences' => $this->residenceService->getResidences()
+            'denizens'      => $this->residenceService->getAllDenizens(),
+            'residences'    => $this->residenceService->getResidences(),
+            'count_denizen' => $this->service->countDenizens()
         ];
         return view('dashboard.pages.denizens.index', $data);
     }
