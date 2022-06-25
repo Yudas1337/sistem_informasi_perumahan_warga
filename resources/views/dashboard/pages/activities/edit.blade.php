@@ -7,8 +7,18 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start">
                             <div class="avatar me-75">
-                                <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" width="38"
-                                    height="38" alt="Avatar" />
+                                @if (!$activity->user->photo)
+                                    @if ($activity->user->gender == 'male')
+                                        <img src="{{ asset('storage/user_images/default_male.png') }}" width="38"
+                                            height="38" alt="Avatar" />
+                                    @else
+                                        <img src="{{ asset('storage/user_images/default_female.png') }}" width="38"
+                                            height="38" alt="Avatar" />
+                                    @endif
+                                @else
+                                    <img src="{{ asset('storage/' . $activity->user->photo) }}" width="38"
+                                        height="38" alt="Avatar" />
+                                @endif
                             </div>
                             <div class="author-info">
                                 <h6 class="mb-25">Dibuat oleh : {{ $activity->user->name }}</h6>
@@ -102,8 +112,8 @@
                                         <div class="d-flex flex-column flex-md-row">
                                             @if (!$activity->thumbnail)
                                                 <img src="{{ asset('storage/activity_images/no-image.png') }}"
-                                                    id="blog-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170"
-                                                    height="110" alt="Blog Featured Image" />
+                                                    id="blog-feature-image" class="rounded me-2 mb-1 mb-md-0"
+                                                    width="170" height="110" alt="Blog Featured Image" />
                                             @else
                                                 <img src="{{ asset('storage/' . $activity->thumbnail) }}"
                                                     id="blog-feature-image" class="rounded me-2 mb-1 mb-md-0"
