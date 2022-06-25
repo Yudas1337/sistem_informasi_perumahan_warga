@@ -26,7 +26,7 @@
                 <div class="card p-2">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h6 class="mb-0">List Administrator</h6>
+                            <h6 class="mb-0">List Kegiatan</h6>
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
