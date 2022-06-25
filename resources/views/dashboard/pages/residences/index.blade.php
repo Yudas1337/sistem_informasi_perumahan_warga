@@ -45,7 +45,8 @@
                 <div class="col-sm-6">
                     <div class="input-group input-group-merge">
                         <input autocomplete="off" name="search" type="text" class="form-control search-product"
-                            id="shop-search" placeholder="Cari alamat rumah" aria-describedby="shop-search">
+                            id="shop-search" placeholder="Cari nama pemilik atau alamat rumah"
+                            aria-describedby="shop-search">
                         <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-search text-muted">
@@ -86,8 +87,11 @@
                         </div>
                         <div class="card-body">
                             <h6 class="item-name">
-                                Alamat : {{ substr($house->address, 0, 40) }}</a>
+                                Pemilik rumah : {{ $house->owner_name }}
                             </h6>
+                            <p class="card-text item-description">
+                                Alamat : {{ substr($house->address, 0, 40) }}
+                            </p>
                         </div>
                         <div class="item-options text-center">
                             <div class="item-wrapper">

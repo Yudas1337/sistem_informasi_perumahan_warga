@@ -47,6 +47,7 @@ class ProfileRequest extends BaseRequest
             'photo.file'            => 'Foto harus berupa file',
             'photo.image'           => 'Foto harus berupa gambar valid',
             'photo.mimes'           => 'Foto harus berekstensi jpg/png/jpeg',
+            'photo.max'             => 'Ukuran foto maksimal 2 Mb',
             'gender.required'       => 'Jenis kelamin tidak boleh kosong',
             'gender.in'             => 'Gender tidak valid'
         ];

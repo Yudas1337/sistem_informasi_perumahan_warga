@@ -103,6 +103,12 @@ abstract class BaseRepository implements BaseInterface
             case 'get':
                 $query = $query->get();
                 break;
+            case 'latest':
+                $query = $query->latest()->get();
+                break;
+            case 'oldest':
+                $query = $query->oldest()->get();
+                break;
             case 'paginate':
                 $query = $query->paginate($pagination);
                 break;

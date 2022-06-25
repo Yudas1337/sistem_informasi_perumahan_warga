@@ -34,6 +34,11 @@
                             autocomplete="off" value="{{ old('hamlet') }}" />
                     </div>
                     <div class="col-12">
+                        <label class="form-label" for="hamlet">Nama Pemilik</label>
+                        <input type="text" id="owner_name" name="owner_name" class="form-control"
+                            placeholder="Yudas Malabi" autocomplete="off" value="{{ old('owner_name') }}" />
+                    </div>
+                    <div class="col-12">
                         <label class="form-label" for="address">Alamat Lengkap</label>
                         <textarea name="address" id="address" cols="15" rows="2" class="form-control">{{ old('address') }}</textarea>
                     </div>

@@ -27,5 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('manage-for-villagehead', fn (User $user) => $user->IsVillageHead());
+
+        Gate::define('manage-for-administrator', fn (User $user) => $user->IsAdmin());
     }
 }

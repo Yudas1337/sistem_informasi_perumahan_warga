@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CivilianController extends Controller
+class DenizenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CivilianController extends Controller
      */
     public function index()
     {
-        dd('test');
+        //
     }
 
     /**

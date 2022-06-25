@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Activity;
 use App\Models\Residence;
 use App\Models\User;
+use App\Observers\ActivityObserver;
 use App\Observers\ResidenceObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Residence::observe(ResidenceObserver::class);
+        Activity::observe(ActivityObserver::class);
     }
 }

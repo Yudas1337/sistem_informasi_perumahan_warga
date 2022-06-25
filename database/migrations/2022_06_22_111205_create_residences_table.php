@@ -17,6 +17,7 @@ class CreateResidencesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('neighbourhood');
             $table->string('hamlet');
+            $table->string('owner_name');
             $table->text('address');
             $table->text('images');
             $table->foreignUuid('house_types_id')->constrained('house_types')->onUpdate('CASCADE')->onDelete('CASCADE');

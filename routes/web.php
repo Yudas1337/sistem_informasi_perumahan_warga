@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Core\{
+    ActivityController,
     DashboardController,
-    CivilianController,
+    DenizenController,
+    FinanceController,
     ManageAdminController,
     ResidenceController
 };
@@ -55,5 +57,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
         Route::prefix('manage-residences')->group(function () {
             Route::post('search', [ResidenceController::class, 'searchResidence'])->name('manage-residences.search');
         });
+    });
+    Route::middleware('can:manage-for-administrator')->group(function () {
+        Route::resource('manage-denizens', DenizenController::class);
+        Route::resource('manage-activities', ActivityController::class);
+        Route::resource('manage-finances', FinanceController::class);
     });
 });

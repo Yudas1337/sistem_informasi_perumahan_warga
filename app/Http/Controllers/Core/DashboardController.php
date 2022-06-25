@@ -7,12 +7,16 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Services\ResidenceService;
 use App\Services\UserService;
+use App\Traits\UserTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
+    use UserTrait;
+
     private $userService, $residenceService;
+    private $data = [];
 
     function __construct(UserService $userService, ResidenceService $residenceService)
     {
@@ -39,14 +43,17 @@ class DashboardController extends Controller
 
     public function index(): View
     {
-        $data = [
-            'total_admin'           => $this->userService->fetchAdministrator(),
-            'total_village_head'    => $this->userService->fetchVillageHead(),
-            'total_residences'      => $this->residenceService->countResidences(),
-            'total_house_types'     => $this->residenceService->countHouseType()
-        ];
+        if ($this->IsVillageHead())
+            $this->data = [
+                'total_admin'           => $this->userService->fetchAdministrator(),
+                'total_village_head'    => $this->userService->fetchVillageHead(),
+                'total_residences'      => $this->residenceService->countResidences(),
+                'total_house_types'     => $this->residenceService->countHouseType()
+            ];
 
-        return view('dashboard.pages.home', $data);
+
+
+        return view('dashboard.pages.home', $this->data);
     }
 
     /**

@@ -79,6 +79,7 @@ class ResidenceService
             $this->repository->store([
                 'neighbourhood'     => $validated['neighbourhood'],
                 'hamlet'            => $validated['hamlet'],
+                'owner_name'        => $validated['owner_name'],
                 'address'           => $validated['address'],
                 'house_types_id'    => $validated['house_types_id'],
                 'images'            => $images
@@ -102,7 +103,7 @@ class ResidenceService
         $find       = $this->typeRepository->show($validated['house_types_id']);
         $photo      = $this->repository->show($id)->images;
 
-        if (!$find) abort(404);
+        abort_if(!$find, 404);
 
         if ($request->file('images')) {
             if (!is_null($photo)) UploadHelper::handleRemove($photo);
@@ -112,6 +113,7 @@ class ResidenceService
         $this->repository->update($id, [
             'neighbourhood'     => $validated['neighbourhood'],
             'hamlet'            => $validated['hamlet'],
+            'owner_name'        => $validated['owner_name'],
             'address'           => $validated['address'],
             'house_types_id'    => $validated['house_types_id'],
             'images'            => $photo

@@ -32,6 +32,18 @@
 
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 
+<!-- BEGIN: Page Vendor JS-->
+<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/editors/quill/katex.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/editors/quill/highlight.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/js/editors/quill/quill.min.js') }}"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{{ asset('app-assets/js/scripts/pages/page-blog-edit.min.js') }}"></script>
+<!-- END: Page JS-->
+
+<script src="{{ asset('app-assets/js/ckeditor/ckeditor.js') }}"></script>
 
 <script>
     $(window).on('load', function() {
@@ -47,5 +59,11 @@
         $('#DataTables_Table_0').DataTable({
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>'
         });
+
+        var konten = document.getElementById("activities-content");
+        CKEDITOR.replace(konten, {
+            language: 'en-gb'
+        });
+        CKEDITOR.config.allowedContent = true;
     });
 </script>

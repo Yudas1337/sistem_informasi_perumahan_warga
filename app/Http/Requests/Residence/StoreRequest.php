@@ -17,6 +17,7 @@ class StoreRequest extends BaseRequest
         return [
             'neighbourhood'     => 'required|regex:/^[0-9]*$/',
             'hamlet'            => 'required|regex:/^[0-9]*$/',
+            'owner_name'        => 'required|regex:/^[a-z-A-Z_\s\.]*$/|min:3',
             'address'           => 'required',
             'house_types_id'    => 'required',
             'images'            => 'required|file|image|max:2048|mimes:jpg,png,jpeg'
@@ -36,6 +37,9 @@ class StoreRequest extends BaseRequest
             'neighbourhood.regex'       => 'RT harus berupa digit angka',
             'hamlet.required'           => 'RW tidak boleh kosong',
             'hamlet.regex'              => 'RW harus berupa digit angka',
+            'owner_name.required'       => 'Nama tidak boleh kosong',
+            'owner_name.regex'          => 'Nama harus berupa karakter valid',
+            'owner_name.min'            => 'Nama minimal 3 karakter',
             'address.required'          => 'Alamat tidak boleh kosong',
             'house_types_id.required'   => 'Tipe rumah tidak boleh kosong',
             'images.required'           => 'Foto tidak boleh kosong',

@@ -26,6 +26,7 @@ class Residence extends Model
         'id',
         'neighbourhood',
         'hamlet',
+        'owner_name',
         'address',
         'images',
         'house_types_id'
