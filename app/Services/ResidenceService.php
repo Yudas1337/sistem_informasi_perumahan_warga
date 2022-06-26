@@ -37,6 +37,18 @@ class ResidenceService
     }
 
     /**
+     * Get residence that has relationship with denizens data from ResidenceRepository
+     *
+     * 
+     * @return mixed
+     */
+
+    public function getResidenceWithDenizens()
+    {
+        return $this->repository->fetchResidenceRenizen();
+    }
+
+    /**
      * Get all denizens data from ResidenceRepository
      *
      * 

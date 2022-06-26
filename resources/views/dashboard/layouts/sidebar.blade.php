@@ -34,8 +34,8 @@
                 <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Laporan Keuangan">Laporan
                     Keuangan</span></a>
         </li>
-        <li class="nav-item {{ request()->routeIs('manage-finances.*') ? 'active' : '' }}"><a
-                class="d-flex align-items-center" href="{{ route('manage-finances.index') }}">
+        <li class="nav-item {{ request()->routeIs('manage-dues.*') ? 'active' : '' }}"><a
+                class="d-flex align-items-center" href="{{ route('manage-dues.index') }}">
                 <i data-feather="dollar-sign"></i><span class="menu-title text-truncate" data-i18n="Data Iuran">Iuran
                     Warga</span></a>
         </li>

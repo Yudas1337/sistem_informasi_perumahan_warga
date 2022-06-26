@@ -4,6 +4,7 @@ use App\Http\Controllers\Core\{
     ActivityController,
     DashboardController,
     DenizenController,
+    DueController,
     FinanceController,
     ManageAdminController,
     ResidenceController
@@ -62,7 +63,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
         Route::resources([
             'manage-denizens'   => DenizenController::class,
             'manage-activities' => ActivityController::class,
-            'manage-finances'   => FinanceController::class
+
         ]);
+        Route::resources([
+            'manage-finances'   => FinanceController::class,
+            'manage-dues'       => DueController::class
+        ], ['only' => ['store', 'index', 'destroy']]);
+        Route::prefix('manage-dues')->group(function () {
+            Route::get('monthly-report', [DueController::class, 'printPdf'])->name('print.dues');
+        });
     });
 });

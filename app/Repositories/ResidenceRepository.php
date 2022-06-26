@@ -52,4 +52,16 @@ class ResidenceRepository extends BaseRepository
     {
         return $this->model->count();
     }
+
+    /**
+     * Get residence that has relationship with denizens data from Residence Model
+     *
+     * 
+     * @return mixed
+     */
+
+    public function fetchResidenceRenizen()
+    {
+        return $this->model->whereHas('denizens')->get();
+    }
 }
