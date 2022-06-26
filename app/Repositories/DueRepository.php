@@ -20,8 +20,7 @@ class DueRepository extends BaseRepository
      * @return int
      */
 
-
-    private function sumTotal(): int
+    public function sumTotal(): int
     {
         return $this->model->sum('total');
     }

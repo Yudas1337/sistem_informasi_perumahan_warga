@@ -3,87 +3,87 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Finances\StoreRequest;
+use App\Services\DueService;
+use App\Services\FinanceService;
+use App\Traits\CurrencyTrait;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class FinanceController extends Controller
 {
-    function __construct()
+    use CurrencyTrait;
+
+    private $service, $dueService;
+    private $income, $outcome;
+
+    function __construct(FinanceService $financeService, DueService $dueService)
     {
+        $this->service      = $financeService;
+        $this->dueService   = $dueService;
+        $this->income       = $this->dueService->sumTotal() + $this->service->sumIncomeFinances();
+        $this->outcome      = $this->service->sumOutcomeFinances();
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): View
     {
-        //
-    }
+        $data = [
+            'finances'  => $this->service->getFinances(),
+            'debit'     => $this->convertRupiah($this->income),
+            'credit'    => $this->convertRupiah($this->outcome),
+            'balance'   => $this->convertRupiah($this->income - $this->outcome)
+        ];
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('dashboard.pages.finances.index', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
-    }
+        $this->service->storeFinance($request);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return redirect()->route('manage-finances.index')->with('success', 'Berhasil menambahkan laporan uang');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $id
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $this->service->destroyFinance($id);
+
+        return redirect()->route('manage-finances.index')->with('success', 'Berhasil menghapus laporan uang');
+    }
+
+    /**
+     * Print Pdf.
+     *
+     */
+
+    public function printPdf()
+    {
+        $data = [
+            'finances'  => $this->service->getFinances(),
+            'debit'     => $this->convertRupiah($this->income),
+            'credit'    => $this->convertRupiah($this->outcome),
+            'balance'   => $this->convertRupiah($this->income - $this->outcome)
+        ];
+
+        return view('dashboard.pages.finances.create-pdf', $data);
     }
 }

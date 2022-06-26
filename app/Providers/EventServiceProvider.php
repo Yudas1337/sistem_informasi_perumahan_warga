@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Models\Activity;
 use App\Models\Due;
+use App\Models\Finance;
 use App\Models\Residence;
 use App\Models\User;
 use App\Observers\ActivityObserver;
 use App\Observers\DueObserver;
+use App\Observers\FinanceObserver;
 use App\Observers\ResidenceObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -39,5 +41,6 @@ class EventServiceProvider extends ServiceProvider
         Residence::observe(ResidenceObserver::class);
         Activity::observe(ActivityObserver::class);
         Due::observe(DueObserver::class);
+        Finance::observe(FinanceObserver::class);
     }
 }

@@ -28,7 +28,7 @@ class DueService
     }
 
     /**
-     * Summ all due from DueRepository
+     * Summ all due from DueRepository with rupiah format
      *
      * 
      * @return mixed
@@ -37,6 +37,18 @@ class DueService
     public function sumAllDue(): mixed
     {
         return $this->repository->sumAllDue();
+    }
+
+    /**
+     * Summ total due from DueRepository
+     *
+     * 
+     * @return mixed
+     */
+
+    public function sumTotal(): mixed
+    {
+        return $this->repository->sumTotal();
     }
 
     /**

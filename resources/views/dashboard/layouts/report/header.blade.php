@@ -22,7 +22,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/semi-dark-layout.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/google-font.css') }}">
 
 <!-- BEGIN: Page CSS-->
 <link rel="stylesheet" type="text/css"

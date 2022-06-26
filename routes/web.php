@@ -72,5 +72,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
         Route::prefix('manage-dues')->group(function () {
             Route::get('monthly-report', [DueController::class, 'printPdf'])->name('print.dues');
         });
+        Route::prefix('manage-finances')->group(function () {
+            Route::get('monthly-report', [FinanceController::class, 'printPdf'])->name('print.finances');
+        });
     });
 });
