@@ -47,8 +47,6 @@ Route::prefix('denizens')->group(function () {
             Route::get('print-pdf/{nik}', [ClientDueController::class, 'printPdf'])->name('pdf');
         });
     });
-
-
     Route::get('finances', [ClientFinanceController::class, 'index'])->name('denizens.finances');
     Route::name('denizens.activities.')->prefix('activities')->group(function () {
         Route::get('/', [ClientActivityController::class, 'index'])->name('showActivities');
