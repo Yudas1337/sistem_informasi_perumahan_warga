@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\UploadHelper;
 use App\Http\Requests\Denizen\StoreRequest;
 use App\Http\Requests\Denizen\UpdateRequest;
+use App\Http\Requests\SearchDueRequest;
 use App\Repositories\DenizenRepository;
 
 class DenizenService
@@ -117,5 +118,18 @@ class DenizenService
         if (!is_null($show->photo)) UploadHelper::handleRemove($show->photo);
 
         $this->repository->destroy($id);
+    }
+
+    /**
+     * search dues by nik
+     *
+     * @param string $nik
+     * 
+     * @return object|null
+     */
+
+    public function searchDue(string $nik): object|null
+    {
+        return $this->repository->searchByNik($nik);
     }
 }

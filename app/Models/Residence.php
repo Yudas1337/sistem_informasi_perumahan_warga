@@ -53,4 +53,15 @@ class Residence extends Model
     {
         return $this->hasMany(Denizen::class, 'residences_id');
     }
+
+    /**
+     * One to Many Relationship with Due models.
+     *
+     * @return relationship
+     */
+
+    public function dues()
+    {
+        return $this->hasMany(Due::class, 'residences_id');
+    }
 }

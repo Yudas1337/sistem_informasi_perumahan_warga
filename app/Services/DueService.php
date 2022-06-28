@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Dues\StoreRequest;
+use App\Http\Requests\SearchDueRequest;
 use App\Repositories\DueRepository;
 
 class DueService

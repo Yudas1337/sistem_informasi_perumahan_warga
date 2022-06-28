@@ -9,8 +9,8 @@
                     href="{{ route('homepage') }}">Home</a></li>
             <li><a class="nav-link {{ request()->routeIs('about-us') ? 'active' : '' }}"
                     href="{{ route('about-us') }}">Tentang Kami</a></li>
-            <li><a class="nav-link {{ request()->routeIs('denizens.dues') ? 'active' : '' }}"
-                    href="{{ route('denizens.dues') }}">Iuran Warga</a></li>
+            <li><a class="nav-link {{ request()->routeIs('denizens.dues.*') ? 'active' : '' }}"
+                    href="{{ route('denizens.dues.homepage') }}">Iuran Warga</a></li>
             <li><a class="nav-link {{ request()->routeIs('denizens.finances') ? 'active' : '' }}"
                     href="{{ route('denizens.finances') }}">Laporan Keuangan</a></li>
             <li><a class="nav-link {{ request()->routeIs('denizens.activities.*') ? 'active' : '' }}"

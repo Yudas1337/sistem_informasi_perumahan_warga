@@ -16,7 +16,8 @@
                 <ul>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('homepage') }}">Home</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('about-us') }}">Tentang kami</a></li>
-                    <li><i class="bx bx-chevron-right"></i> <a href="{{ route('denizens.dues') }}">Iuran Warga</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="{{ route('denizens.dues.homepage') }}">Iuran
+                            Warga</a></li>
                 </ul>
             </div>
 

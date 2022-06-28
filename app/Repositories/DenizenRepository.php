@@ -40,6 +40,22 @@ class DenizenRepository extends BaseRepository
     }
 
     /**
+     * search dues by specified nik
+     * 
+     * @param string $nik
+     * 
+     * @return mixed
+     */
+
+    public function searchByNik(string $nik)
+    {
+        return $this->model->where('nik', $nik)
+            ->whereHas('residence')
+            ->with(['residence.dues'])
+            ->get();
+    }
+
+    /**
      * Get denizen file Diskname
      * 
      *

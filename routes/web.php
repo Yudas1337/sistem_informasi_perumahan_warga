@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Client\{
     ActivityController as ClientActivityController,
-    DenizenController as ClientDenizenController,
+    DueController as ClientDueController,
     FinanceController as ClientFinanceController,
     HomeController
 };
@@ -40,7 +40,15 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('about-us', [HomeController::class, 'about'])->name('about-us');
 
 Route::prefix('denizens')->group(function () {
-    Route::get('dues', [ClientDenizenController::class, 'index'])->name('denizens.dues');
+    Route::name('denizens.dues.')->group(function () {
+        Route::get('dues', [ClientDueController::class, 'index'])->name('homepage');
+        Route::post('dues', [ClientDueController::class, 'search'])->name('search');
+        Route::prefix('dues')->group(function () {
+            Route::get('print-pdf/{nik}', [ClientDueController::class, 'printPdf'])->name('pdf');
+        });
+    });
+
+
     Route::get('finances', [ClientFinanceController::class, 'index'])->name('denizens.finances');
     Route::name('denizens.activities.')->prefix('activities')->group(function () {
         Route::get('/', [ClientActivityController::class, 'index'])->name('showActivities');
