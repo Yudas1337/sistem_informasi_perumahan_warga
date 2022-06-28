@@ -107,7 +107,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label" for="modalAddressTown">Foto warga</label>
-                        <input type="file" name="photo" accept="image/*" class="form-control">
+                        <input type="file" name="photo" class="form-control">
                     </div>
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-primary me-1 mt-2">Submit</button>

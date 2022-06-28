@@ -99,7 +99,9 @@ class ResidenceService
         $find = $this->typeRepository->show($validated['house_types_id']);
 
         if ($find) {
-            $images = UploadHelper::handleUpload($request->file('images'), $this->repository->getDiskName());
+            if ($request->hasFile('images')) {
+                $images = UploadHelper::handleUpload($request->file('images'), $this->repository->getDiskName());
+            }
             $this->repository->store([
                 'neighbourhood'     => $validated['neighbourhood'],
                 'hamlet'            => $validated['hamlet'],
@@ -129,7 +131,7 @@ class ResidenceService
 
         abort_if(!$find, 404);
 
-        if ($request->file('images')) {
+        if ($request->hasFile('images')) {
             if (!is_null($photo)) UploadHelper::handleRemove($photo);
             $photo = UploadHelper::handleUpload($request->file('images'), $this->repository->getDiskName());
         }

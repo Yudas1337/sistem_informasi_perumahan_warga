@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Client\ActivityController as ClientActivityController;
+use App\Http\Controllers\Client\DenizenController as ClientDenizenController;
+use App\Http\Controllers\Client\FinanceController as ClientFinanceController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Core\{
     ActivityController,
     DashboardController,
@@ -29,8 +33,16 @@ Route::fallback(function () {
     abort(404);
 });
 
-Route::get('/', function () {
-    return view('coba');
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+
+Route::get('about-us', function () {
+    echo 'about us';
+})->name('about-us');
+
+Route::prefix('denizens')->group(function () {
+    Route::get('dues', [ClientDenizenController::class, 'index'])->name('denizens.dues');
+    Route::get('finances', [ClientFinanceController::class, 'index'])->name('denizens.finances');
+    Route::get('activities', [ClientActivityController::class, 'index'])->name('denizens.activities');
 });
 
 Auth::routes([

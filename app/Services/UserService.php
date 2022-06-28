@@ -66,7 +66,7 @@ class UserService
         $validated  = $request->validated();
         $old_photo  = $this->fetchUserSession()->photo;
 
-        if ($request->file('photo')) {
+        if ($request->hasFile('photo')) {
             if (!is_null($old_photo)) UploadHelper::handleRemove($old_photo);
 
             $old_photo = UploadHelper::handleUpload($request->file('photo'), $this->repository->getDiskName());
