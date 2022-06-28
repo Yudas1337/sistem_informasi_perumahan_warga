@@ -35,9 +35,7 @@ Route::fallback(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
-Route::get('about-us', function () {
-    echo 'about us';
-})->name('about-us');
+Route::get('about-us', [HomeController::class, 'about'])->name('about-us');
 
 Route::prefix('denizens')->group(function () {
     Route::get('dues', [ClientDenizenController::class, 'index'])->name('denizens.dues');
