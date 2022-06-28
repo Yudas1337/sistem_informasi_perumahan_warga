@@ -13,8 +13,8 @@
                     href="{{ route('denizens.dues') }}">Iuran Warga</a></li>
             <li><a class="nav-link {{ request()->routeIs('denizens.finances') ? 'active' : '' }}"
                     href="{{ route('denizens.finances') }}">Laporan Keuangan</a></li>
-            <li><a class="nav-link {{ request()->routeIs('denizens.activities') ? 'active' : '' }}"
-                    href="{{ route('denizens.activities') }}">Kegiatan warga</a></li>
+            <li><a class="nav-link {{ request()->routeIs('denizens.activities.*') ? 'active' : '' }}"
+                    href="{{ route('denizens.activities.showActivities') }}">Kegiatan warga</a></li>
             @if (!Auth::guest())
                 <li><a class="getstarted" href="{{ route('dashboard.home') }}">Hi,
                         {{ auth()->user()->name }}</a></li>

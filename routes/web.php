@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Client\ActivityController as ClientActivityController;
-use App\Http\Controllers\Client\DenizenController as ClientDenizenController;
-use App\Http\Controllers\Client\FinanceController as ClientFinanceController;
-use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\{
+    ActivityController as ClientActivityController,
+    DenizenController as ClientDenizenController,
+    FinanceController as ClientFinanceController,
+    HomeController
+};
 use App\Http\Controllers\Core\{
     ActivityController,
     DashboardController,
@@ -40,7 +42,10 @@ Route::get('about-us', [HomeController::class, 'about'])->name('about-us');
 Route::prefix('denizens')->group(function () {
     Route::get('dues', [ClientDenizenController::class, 'index'])->name('denizens.dues');
     Route::get('finances', [ClientFinanceController::class, 'index'])->name('denizens.finances');
-    Route::get('activities', [ClientActivityController::class, 'index'])->name('denizens.activities');
+    Route::name('denizens.activities.')->prefix('activities')->group(function () {
+        Route::get('/', [ClientActivityController::class, 'index'])->name('showActivities');
+        Route::get('{slug}', [ClientActivityController::class, 'detail'])->name('detail');
+    });
 });
 
 Auth::routes([
@@ -72,8 +77,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
     Route::middleware('can:manage-for-administrator')->group(function () {
         Route::resources([
             'manage-denizens'   => DenizenController::class,
-            'manage-activities' => ActivityController::class,
-
+            'manage-activities' => ActivityController::class
         ]);
         Route::resources([
             'manage-finances'   => FinanceController::class,

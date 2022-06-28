@@ -35,7 +35,20 @@ class ActivityService
 
     public function fetchActivities(): object
     {
-        return $this->repository->withRelationship(['category']);
+        return $this->repository->withRelationship(['category', 'user']);
+    }
+
+    /**
+     * Get Activity by specified slug from ActivityRepository.
+     * 
+     * @param string $slug
+     * 
+     * @return object
+     */
+
+    public function fetchBySlug(string $slug): object
+    {
+        return $this->repository->getBySlug($slug);
     }
 
     /**

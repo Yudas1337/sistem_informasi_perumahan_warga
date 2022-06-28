@@ -25,7 +25,8 @@
                 <ul>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('denizens.finances') }}">Laporan
                             Keuangan</a></li>
-                    <li><i class="bx bx-chevron-right"></i> <a href="{{ route('denizens.activities') }}">Kegiatan
+                    <li><i class="bx bx-chevron-right"></i> <a
+                            href="{{ route('denizens.activities.showActivities') }}">Kegiatan
                             Warga</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="{{ route('login') }}">Login</a></li>
                 </ul>
